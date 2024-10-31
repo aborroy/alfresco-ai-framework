@@ -2,6 +2,7 @@ package org.alfresco.ai_framework.ingestion;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +19,6 @@ public class IngestionController {
 
     private final IngestionService ingestionService;
 
-    /**
-     * Constructs an IngestionController with the specified IngestionService.
-     *
-     * @param ingestionService The service responsible for processing document ingestion.
-     */
     public IngestionController(IngestionService ingestionService) {
         this.ingestionService = ingestionService;
     }
@@ -36,12 +32,13 @@ public class IngestionController {
      * @throws IOException If an error occurs while reading the file input stream.
      */
     @PostMapping("/documents")
-    public void uploadDocument(
+    public ResponseEntity<String> uploadDocument(
             @RequestParam("documentId") String documentId,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         Resource resource = createFileResource(file);
         ingestionService.ingest(documentId, resource);
+        return ResponseEntity.ok("Document uploaded successfully with ID: " + documentId);
     }
 
     /**
