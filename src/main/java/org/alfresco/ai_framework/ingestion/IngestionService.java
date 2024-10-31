@@ -5,11 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
+import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service responsible for handling the ingestion of documents into the vector store.
@@ -38,11 +40,43 @@ public class IngestionService {
         // Read and split document into text chunks
         var transformedDocuments = transformDocument(file);
 
-        // Add document ID to each document's metadata and store in vector store
-        transformedDocuments.forEach(document -> document.getMetadata().put("documentId", documentId));
+        // Add document ID to each document's metadata
+        transformedDocuments.forEach(document -> {
+            document.getMetadata().put("documentId", documentId);
+        });
+
+        // Remove existing documents with the same document ID before adding new ones
+        deleteByDocumentId(documentId);
+
+        // Add updated documents to the vector store
         vectorStore.add(transformedDocuments);
 
         logger.info("Successfully ingested document ID: {}", documentId);
+    }
+
+    /**
+     * Deletes documents from the vector store that match the given document ID.
+     *
+     * @param documentId Unique identifier for the document to delete.
+     */
+    private void deleteByDocumentId(String documentId) {
+        logger.info("Deleting existing documents with document ID: {}", documentId);
+
+        // Perform a similarity search to find documents with the specified document ID
+        List<Document> documents = vectorStore.similaritySearch(
+                SearchRequest.defaults().withFilterExpression("'documentId' == '" + documentId + "'")
+        );
+
+        // Delete the found documents from the vector store
+        if (!documents.isEmpty()) {
+            vectorStore.delete(documents.stream()
+                    .map(Document::getId)
+                    .collect(Collectors.toList())
+            );
+            logger.info("Deleted {} document(s) with document ID: {}", documents.size(), documentId);
+        } else {
+            logger.info("No documents found with document ID: {}", documentId);
+        }
     }
 
     /**
