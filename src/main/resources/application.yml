@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: demo
+  http:
+    client:
+      connect-timeout: 60s
+      read-timeout: 60s
+
+#  docker run \
+#  -p 9200:9200 \
+#  -p 9300:9300 \
+#  -e "discovery.type=single-node" \
+#  -e "xpack.security.enabled=false" \
+#  -e "network.host=0.0.0.0" \
+#  elasticsearch:8.12.2
+
+  elasticsearch:
+    uris: http://localhost:9200
+
+  ai:
+    chat:
+      client:
+        observations:
+          include-input: true
+      observations:
+        include-completion: true
+        include-prompt: true
+# open -a ollama
+    ollama:
+      base-url: http://localhost:11434
+      init:
+        pull-model-strategy: when_missing
+      chat:
+        options:
+          model: mistral
+          temperature: 0.0
+      embedding:
+        options:
+          model: nomic-embed-text
+    vectorstore:
+      observations:
+        include-query-response: true
+      elasticsearch:
+        initialize-schema: true
+        index-name: alfresco-ai-document-index
+        dimensions: 768
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
