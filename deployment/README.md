@@ -18,8 +18,14 @@ This repository contains Docker Compose configuration for deploying the Alfresco
    OLLAMA_BASE_URL=http://host.docker.internal:11434
    ELASTICSEARCH_VERSION=8.15.3
    ```
+3. Build the `alfresco-ai-framework` Docker Image:
+   ```
+   cd ..
+   mvn clean package
+   cd deployment
+   ```
 
-3. Start the services:
+4. Start the services:
    ```bash
    docker compose up -d
    ```
