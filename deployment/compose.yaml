@@ -10,4 +10,4 @@ services:
       elasticsearch:
         condition: service_healthy
     ports:
-      - "8080:8080"
+      - "9999:9999"

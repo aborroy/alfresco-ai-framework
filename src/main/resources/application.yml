@@ -36,6 +36,9 @@ spring:
         index-name: alfresco-ai-document-index
         dimensions: 768
 
+server:
+  port: 9999
+
 management:
   endpoints:
     web:

@@ -9,8 +9,6 @@ import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * Service responsible for handling chat interactions with the AI system.
  * Configures chat advisors, such as QuestionAnswerAdvisor and SafeGuardAdvisor,
