@@ -1,16 +1,6 @@
 services:
-  alfresco-ai-framework:
-    image: alfresco-ai-framework:latest
-    environment:
-      - spring.elasticsearch.uris=http://elasticsearch:9200
-      - spring.ai.ollama.base-url=http://host.docker.internal:11434
-    depends_on:
-      elasticsearch:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
   elasticsearch:
-    image: elasticsearch:8.12.2
+    image: elasticsearch:${ELASTICSEARCH_VERSION}
     ulimits:
       memlock:
         soft: -1
@@ -29,3 +19,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+volumes:
+  es-data:

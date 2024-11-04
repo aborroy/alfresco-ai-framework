@@ -1,0 +1,13 @@
+include:
+  - elasticsearch.yaml
+services:
+  alfresco-ai-framework:
+    image: alfresco-ai-framework:latest
+    environment:
+      - spring.elasticsearch.uris=${ELASTICSEARCH_URIS}
+      - spring.ai.ollama.base-url=${OLLAMA_BASE_URL}
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
