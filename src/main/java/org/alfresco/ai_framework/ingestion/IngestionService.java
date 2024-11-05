@@ -59,7 +59,7 @@ public class IngestionService {
      *
      * @param documentId Unique identifier for the document to delete.
      */
-    private void deleteByDocumentId(String documentId) {
+    public void deleteByDocumentId(String documentId) {
         logger.info("Deleting existing documents with document ID: {}", documentId);
 
         // Perform a similarity search to find documents with the specified document ID

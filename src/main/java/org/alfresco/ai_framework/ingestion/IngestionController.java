@@ -2,7 +2,9 @@ package org.alfresco.ai_framework.ingestion;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +42,20 @@ public class IngestionController {
         ingestionService.ingest(documentId, resource);
         return ResponseEntity.ok("Document uploaded successfully with ID: " + documentId);
     }
+
+    /**
+     * Endpoint for deleting a document from the system.
+     * Accepts a document ID to delete the corresponding document from the system.
+     *
+     * @param documentId Unique identifier for the document.
+     * @return ResponseEntity with the status of the deletion.
+     */
+    @DeleteMapping("/documents")
+    public ResponseEntity<String> deleteDocument(@RequestParam("documentId") String documentId) {
+        ingestionService.deleteByDocumentId(documentId);
+        return ResponseEntity.ok("Document deleted successfully with ID: " + documentId);
+    }
+
 
     /**
      * Creates a Resource from the MultipartFile to be ingested.
