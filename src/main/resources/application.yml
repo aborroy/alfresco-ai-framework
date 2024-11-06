@@ -27,7 +27,7 @@ spring:
         pull-model-strategy: when_missing
       chat:
         options:
-          model: mistral
+          model: qwen2.5
           temperature: 0.0
       embedding:
         options:

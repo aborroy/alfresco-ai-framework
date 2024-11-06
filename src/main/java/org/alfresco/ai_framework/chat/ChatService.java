@@ -37,8 +37,7 @@ public class ChatService {
 
     /**
      * Processes a chat query by interacting with the AI through configured advisors.
-     * Uses a QuestionAnswerAdvisor for document retrieval and a SafeGuardAdvisor
-     * to filter inappropriate content.
+     * Uses a QuestionAnswerAdvisor for document retrieval.
      *
      * @param query The user input to process.
      * @return The AI-generated ChatResponse, containing the answer and metadata.
