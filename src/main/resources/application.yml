@@ -5,6 +5,10 @@ spring:
     client:
       connect-timeout: 60s
       read-timeout: 60s
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 
   elasticsearch:
     uris: http://localhost:9200

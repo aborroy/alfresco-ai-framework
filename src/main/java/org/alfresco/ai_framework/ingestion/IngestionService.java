@@ -32,9 +32,10 @@ public class IngestionService {
      * Ingests a document into the vector store by reading, transforming, and storing it.
      *
      * @param documentId Unique identifier for the document.
+     * @param fileName   Public name of the file.
      * @param file       The file resource to ingest.
      */
-    public void ingest(String documentId, Resource file) {
+    public void ingest(String documentId, String fileName, Resource file) {
         logger.info("Starting ingestion for document ID: {}", documentId);
 
         // Read and split document into text chunks
@@ -43,6 +44,7 @@ public class IngestionService {
         // Add document ID to each document's metadata
         transformedDocuments.forEach(document -> {
             document.getMetadata().put("documentId", documentId);
+            document.getMetadata().put("fileName", fileName);
         });
 
         // Remove existing documents with the same document ID before adding new ones
@@ -63,19 +65,23 @@ public class IngestionService {
         logger.info("Deleting existing documents with document ID: {}", documentId);
 
         // Perform a similarity search to find documents with the specified document ID
-        List<Document> documents = vectorStore.similaritySearch(
-                SearchRequest.defaults().withFilterExpression("'documentId' == '" + documentId + "'")
-        );
-
-        // Delete the found documents from the vector store
-        if (!documents.isEmpty()) {
-            vectorStore.delete(documents.stream()
-                    .map(Document::getId)
-                    .collect(Collectors.toList())
+        try {
+            List<Document> documents = vectorStore.similaritySearch(
+                    SearchRequest.defaults().withFilterExpression("'documentId' == '" + documentId + "'")
             );
-            logger.info("Deleted {} document(s) with document ID: {}", documents.size(), documentId);
-        } else {
-            logger.info("No documents found with document ID: {}", documentId);
+
+            // Delete the found documents from the vector store
+            if (!documents.isEmpty()) {
+                vectorStore.delete(documents.stream()
+                        .map(Document::getId)
+                        .collect(Collectors.toList())
+                );
+                logger.info("Deleted {} document(s) with document ID: {}", documents.size(), documentId);
+            } else {
+                logger.info("No documents found with document ID: {}", documentId);
+            }
+        } catch (Exception e) {
+            logger.error("Failed to delete documents with ID: {}", documentId, e);
         }
     }
 

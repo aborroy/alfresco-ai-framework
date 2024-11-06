@@ -30,16 +30,18 @@ public class IngestionController {
      * Accepts a document ID and file to be ingested by the IngestionService.
      *
      * @param documentId Unique identifier for the document.
+     * @param fileName   Public name of the file.
      * @param file       The file to be ingested.
      * @throws IOException If an error occurs while reading the file input stream.
      */
     @PostMapping("/documents")
     public ResponseEntity<String> uploadDocument(
             @RequestParam("documentId") String documentId,
+            @RequestParam("fileName") String fileName,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         Resource resource = createFileResource(file);
-        ingestionService.ingest(documentId, resource);
+        ingestionService.ingest(documentId, fileName, resource);
         return ResponseEntity.ok("Document uploaded successfully with ID: " + documentId);
     }
 
