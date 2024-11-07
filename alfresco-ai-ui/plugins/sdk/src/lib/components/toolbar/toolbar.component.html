@@ -1,0 +1,33 @@
+<mat-toolbar>
+  <button *ngIf="showSidebar" mat-icon-button (click)="toggleSidebar.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <app-title></app-title>
+
+  <div class="app-toolbar-spacer"></div>
+
+  <ng-container *ngIf="entries">
+    <ng-container *ngFor="let entry of entries">
+      <ng-container *ngIf="entry.icon; else text_item">
+        <button mat-icon-button [title]="entry.text | translate" (click)="runAction(entry)">
+          <mat-icon>{{ entry.icon }}</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #text_item>
+        <button mat-button (click)="runAction(entry)">{{ entry.text | translate }}</button>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <adf-picker-button></adf-picker-button>
+    <button mat-menu-item adf-logout>
+      <mat-icon>logout</mat-icon>
+      <span>{{ 'APP.LOGOUT' | translate }}</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

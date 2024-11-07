@@ -1,0 +1,50 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<adf-search-input [fields]="config.fields" (changed)="onSearchQueryChanged($event)"></adf-search-input>
+
+<div style="margin: 10px">
+  <adf-search-filter-chips>
+    <!-- Using custom widgets directly (requires ADF 6.8.x or later) -->
+    <!--
+    <adf-search-widget-chip
+      [category]="{
+        id: 'tag',
+        name: 'Tags',
+        enabled: true,
+        expanded: false,
+        component: {
+          selector: 'autocomplete-chips',
+          settings: {
+            allowUpdateOnChange: false,
+            hideDefaultAction: true,
+            allowOnlyPredefinedValues: true,
+            field: 'TAG'
+          }
+        },
+        rules: {
+          visible: 'app.areTagsEnabled'
+        }
+      }"
+    ></adf-search-widget-chip>
+    -->
+  </adf-search-filter-chips>
+</div>
+
+<adf-document-list
+  #documentList [node]="$any(data)"
+  [stickyHeader]="true"
+  [selectionMode]="'multiple'"
+  [sortingMode]="'server'"
+  [sorting]="sorting"
+  (preview)="showPreview($event)">
+  <adf-custom-empty-content-template>
+    <adf-empty-content icon="search" [title]="'Empty Results'"
+                       [subtitle]="'No data matching your query'"></adf-empty-content>
+  </adf-custom-empty-content-template>
+</adf-document-list>
+
+<adf-pagination
+  *ngIf="totalResults > 0"
+  [target]="documentList"
+  [supportedPageSizes]="[5, 10, 15, 20]"
+  (change)="onPaginationChanged($event)"
+></adf-pagination>

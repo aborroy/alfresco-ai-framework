@@ -1,0 +1,32 @@
+{
+  "APP": {
+    "INFO_DRAWER": {
+      "TITLE": "Details",
+      "COMMENTS": "Comments",
+      "PROPERTIES": "Properties",
+      "VERSIONS": "Versions"
+    },
+    "LOGOUT": "Logout",
+    "NAV": {
+      "DOCUMENTS": "Documents"
+    }
+  },
+  "LIB": {
+    "SEARCH": {
+      "CATEGORIES": {
+        "LOGIC": "Logic",
+        "PROPERTIES": "Properties",
+        "DATE": "Date",
+        "DATE_TABS": {
+          "CREATED": "Created",
+          "MODIFIED": "Modified"
+        }
+      },
+      "FACET_FIELDS": {
+        "LOCATION": "Location",
+        "CATEGORIES": "Categories"
+      }
+    }
+  },
+  "welcome_msg": "Please, select a feature in the side menu."
+}

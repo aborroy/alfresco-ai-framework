@@ -1,0 +1,14 @@
+<mat-sidenav-container class="page-container">
+  <mat-sidenav #sidenav mode="side" opened="false" class="page-sidenav">
+    <mat-nav-list>
+      <ng-container *ngIf="entries">
+        <button *ngFor="let entry of entries" mat-list-item (click)="runAction(entry)">
+          <mat-icon matListIcon>{{ entry.icon }}</mat-icon>
+          <div>{{ entry.text | translate }}</div>
+        </button>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <ng-content></ng-content>
+</mat-sidenav-container>

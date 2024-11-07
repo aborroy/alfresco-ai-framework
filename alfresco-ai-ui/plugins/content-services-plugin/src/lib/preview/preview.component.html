@@ -1,0 +1,43 @@
+<ng-container *ngIf="nodeId">
+  <ng-template let-node="node" #sidebarTemplate>
+    <adf-info-drawer [title]="'APP.INFO_DRAWER.TITLE' | translate">
+      <adf-info-drawer-tab [label]="'APP.INFO_DRAWER.PROPERTIES' | translate">
+        <adf-content-metadata
+          [node]="node"
+          [displayCategories]="true"
+          [displayTags]="true">
+        </adf-content-metadata>
+      </adf-info-drawer-tab>
+
+      <adf-info-drawer-tab [label]="'APP.INFO_DRAWER.VERSIONS' | translate">
+        <adf-version-manager
+          [node]="node"
+          (uploadError)="onUploadError($event)">
+        </adf-version-manager>
+      </adf-info-drawer-tab>
+
+      <adf-info-drawer-tab [label]="'APP.INFO_DRAWER.COMMENTS' | translate">
+        <adf-node-comments [nodeId]="nodeId"></adf-node-comments>
+      </adf-info-drawer-tab>
+    </adf-info-drawer>
+  </ng-template>
+
+  <adf-alfresco-viewer
+    [nodeId]="nodeId"
+    (showViewerChange)="onViewerVisibilityChanged()"
+    [allowRightSidebar]="true"
+    [sidebarRightTemplate]="sidebarTemplate"
+  >
+    <adf-viewer-toolbar-actions>
+      <!-- <button mat-icon-button>
+        <mat-icon>alarm</mat-icon>
+      </button> -->
+      <!-- <button mat-icon-button>
+        <mat-icon>backup</mat-icon>
+      </button> -->
+      <button mat-icon-button>
+        <mat-icon>bug_report</mat-icon>
+      </button>
+    </adf-viewer-toolbar-actions>
+  </adf-alfresco-viewer>
+</ng-container>

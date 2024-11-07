@@ -1,0 +1,6 @@
+<app-toolbar *ngIf="showToolbar" [entries]="mainActionsEntries$ | async" [showSidebar]="showSidebar" (toggleSidebar)="sidebar?.toggle()">
+</app-toolbar>
+
+<app-sidebar *ngIf="showSidebar" #sidebar [entries]="navigation$ | async">
+  <router-outlet id="main-content-outlet"></router-outlet>
+</app-sidebar>

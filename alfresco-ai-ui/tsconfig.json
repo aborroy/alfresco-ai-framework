@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "noUnusedLocals": false,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "strictTemplates": true
+  },
+  "extends": "./tsconfig.base.json"
+}

@@ -1,0 +1,22 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "target": "es2020",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/plugins/calendar": ["plugins/calendar-plugin/src/index.ts"],
+      "@/plugins/content-services": ["plugins/content-services-plugin/src/index.ts"],
+      "@/plugins/dashboard": ["plugins/dashboard-plugin/src/index.ts"],
+      "@/plugins/chat": ["plugins/chat-plugin/src/index.ts"],
+      "@hx-devkit/sdk": ["plugins/sdk/src/index.ts"]
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": "app",
+  "sourceRoot": "src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "allowedCommonJsDependencies": [
+          "minimatch",
+          "brace-expansion",
+          "superagent",
+          "event-emitter",
+          "cropperjs"
+        ],
+        "outputPath": "dist",
+        "index": "src/index.html",
+        "main": "src/main.ts",
+        "tsConfig": "tsconfig.app.json",
+        "polyfills": "src/polyfills.ts",
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "node_modules"
+          ]
+        },
+        "assets": [
+          "src/assets",
+          "src/favicon-96x96.png",
+          "src/app.config.json",
+          {
+            "glob": "**/*",
+            "input": "src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@alfresco/adf-core/bundles/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@alfresco/adf-content-services/bundles/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "pdf.worker.js",
+            "input": "node_modules/pdfjs-dist/build",
+            "output": "/"
+          },
+          {
+            "glob": "pdf.worker.min.js",
+            "input": "node_modules/pdfjs-dist/build",
+            "output": "/"
+          }
+        ],
+        "styles": [
+          "node_modules/cropperjs/dist/cropper.min.css",
+          "node_modules/pdfjs-dist/web/pdf_viewer.css",
+          "src/app.theme.scss"
+        ],
+        "scripts": [
+          "node_modules/pdfjs-dist/build/pdf.js",
+          "node_modules/pdfjs-dist/web/pdf_viewer.js"
+        ],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "app:build",
+        "port": 4200,
+        "host": "0.0.0.0",
+        "proxyConfig": "proxy.conf.js",
+        "disableHostCheck": true
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "app:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["./src/**/*.ts", "./src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "src/test.ts",
+        "karmaConfig": "./karma.conf.js",
+        "polyfills": "src/polyfills.ts",
+        "tsConfig": "tsconfig.spec.json",
+        "scripts": [
+          "node_modules/pdfjs-dist/build/pdf.js",
+          "node_modules/pdfjs-dist/web/pdf_viewer.js"
+        ],
+        "styles": [
+          "src/app.theme.scss"
+        ],
+        "assets": [
+          "src/assets",
+          "src/favicon-96x96.png",
+          "src/app.config.json",
+          {
+            "glob": "**/*",
+            "input": "src/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@alfresco/adf-core/bundles/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@alfresco/adf-content-services/bundles/assets",
+            "output": "/assets"
+          },
+          {
+            "glob": "pdf.worker.js",
+            "input": "node_modules/pdfjs-dist/build",
+            "output": "/"
+          }
+        ]
+      }
+    }
+  }
+}

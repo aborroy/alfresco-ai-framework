@@ -1,0 +1,28 @@
+<div class="page-container">
+  <div class="chat-container">
+    <mat-form-field class="chat-input" appearance="outline">
+      <mat-label>Chat</mat-label>
+      <input matInput placeholder="Enter your prompt" [(ngModel)]="promptString" />
+      <button mat-icon-button matSuffix (click)="onPrompt()">
+        <mat-icon *ngIf="!loading">chat</mat-icon>
+        <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="chat-results-container" *ngIf="!loading && answerResults()">
+    <div class="answer-box">
+      <p>{{ answerResults().answer }}</p>
+    </div>
+
+    <div class="document-metadata-container">
+      <div class="document-metadata-pill" *ngFor="let doc of answerResults().documentMetadata">
+        <a class="result-link" [href]="'http://localhost:8080/share/page/document-details?nodeRef=workspace://SpacesStore/' + doc.documentId" target="_blank">
+          <span class="distance">{{ doc.distance | number:'1.4-4' }}</span>
+          <span class="file-name">{{ doc.fileName }}</span>
+          <mat-icon class="external-link-icon">open_in_new</mat-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

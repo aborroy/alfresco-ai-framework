@@ -1,0 +1,77 @@
+.page-container {
+  display: flex;
+  padding: 0 16px;
+  margin: 24px;
+}
+
+.chat-container {
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.chat-input {
+  width: 100%;
+}
+
+.chat-input textarea {
+  min-height: 100px;
+}
+
+.chat-results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.answer-box {
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.answer-box h3 {
+  margin-top: 0;
+}
+
+.document-metadata-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.document-metadata-pill {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 auto;
+}
+
+.document-metadata-pill .file-name {
+  font-weight: 600;
+}
+
+.document-metadata-pill .document-id,
+.document-metadata-pill .source,
+.document-metadata-pill .distance {
+  color: #666;
+  font-size: 14px;
+}
+
+.document-metadata-pill .external-link-icon {
+  margin-left: auto;
+  color: #666;
+}
+
+.document-metadata-pill a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}

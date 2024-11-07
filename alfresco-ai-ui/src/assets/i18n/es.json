@@ -1,0 +1,15 @@
+{
+  "APP": {
+    "INFO_DRAWER": {
+      "TITLE": "Detalles",
+      "COMMENTS": "Comentarios",
+      "PROPERTIES": "Propiedades",
+      "VERSIONS": "Versiónes"
+    },
+    "LOGOUT": "Cerrar sesión",
+    "NAV": {
+      "DOCUMENTS": "Documentos"
+    }
+  },
+  "welcome_msg": "Por favor, seleccione una función en el menú de la aplicación."
+}

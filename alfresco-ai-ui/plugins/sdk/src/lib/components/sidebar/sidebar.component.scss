@@ -1,0 +1,31 @@
+app-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  .page-sidenav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+  }
+
+  mat-sidenav-content > *:not(router-outlet) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .mat-drawer.mat-drawer-side {
+    z-index: 0;
+  }
+}
