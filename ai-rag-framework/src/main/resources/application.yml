@@ -43,6 +43,10 @@ spring:
 server:
   port: 9999
 
+cors:
+  filter:
+    disabled: true
+
 management:
   endpoints:
     web:
