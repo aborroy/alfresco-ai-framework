@@ -27,7 +27,7 @@ USER appuser
 WORKDIR /opt
 
 # Copy the built JAR file into the container
-COPY target/ai-framework-*.jar app.jar
+COPY target/ai-rag-framework-*.jar app.jar
 
 # Set the default command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

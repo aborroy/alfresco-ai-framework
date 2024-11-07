@@ -1,0 +1,80 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="Pm6mDl6KjkCkImUB7gMH">
+    <mxGraphModel dx="1031" dy="694" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="duSRz2moG8owglBI98U7-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="duSRz2moG8owglBI98U7-1" target="duSRz2moG8owglBI98U7-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="380" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="280" />
+              <mxPoint x="310" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-9" value="11434" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="duSRz2moG8owglBI98U7-5">
+          <mxGeometry x="0.107" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-1" value="&lt;b&gt;alfresco-ai-framework&lt;/b&gt;&lt;div&gt;&lt;i&gt;Spring AI&lt;/i&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="180" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-2" value="&lt;div&gt;LLM&lt;/div&gt;&lt;i&gt;ollama&lt;/i&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="270" y="310" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-3" value="&lt;div&gt;VectorDB&lt;/div&gt;&lt;i&gt;elasticsearch&lt;/i&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="430" y="310" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-6" value="9200" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="duSRz2moG8owglBI98U7-1" target="duSRz2moG8owglBI98U7-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="270" as="sourcePoint" />
+            <mxPoint x="320" y="320" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="280" />
+              <mxPoint x="470" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-10" value="&lt;b&gt;ACS&lt;/b&gt;&lt;div&gt;&lt;i&gt;Addon&lt;/i&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="40" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-11" value="&lt;b&gt;UI&lt;/b&gt;&lt;div&gt;&lt;i&gt;Angular&lt;/i&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="40" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-12" value="ingest&lt;div&gt;9999&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="duSRz2moG8owglBI98U7-10" target="duSRz2moG8owglBI98U7-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="175" as="sourcePoint" />
+            <mxPoint x="280" y="245" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="310" y="140" />
+              <mxPoint x="390" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-13" value="chat&lt;div&gt;9999&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=default;endArrow=none;endFill=0;" edge="1" parent="1" source="duSRz2moG8owglBI98U7-11" target="duSRz2moG8owglBI98U7-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="110" as="sourcePoint" />
+            <mxPoint x="620" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="480" y="140" />
+              <mxPoint x="390" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-14" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;dashed=1;" edge="1" parent="1" source="duSRz2moG8owglBI98U7-11" target="duSRz2moG8owglBI98U7-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="190" as="sourcePoint" />
+            <mxPoint x="450" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="duSRz2moG8owglBI98U7-15" value="link&lt;div&gt;8080&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="duSRz2moG8owglBI98U7-14">
+          <mxGeometry x="-0.1319" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

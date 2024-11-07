@@ -1,0 +1,25 @@
+# IntelliJ IDEA
+.idea/
+
+# Compiled class file
+*.class
+
+# Log files
+*.log
+
+# Compiled files
+*.jar
+
+# Dependencies
+/target/
+/lib/
+
+# IntelliJ project files
+*.iml
+*.ipr
+*.iws
+
+# Operating System files
+.DS_Store
+Thumbs.db
+

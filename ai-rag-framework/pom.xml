@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>org.alfresco</groupId>
-	<artifactId>ai-framework</artifactId>
+	<artifactId>ai-rag-framework</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ai-framework</name>
 	<description>AI Framework for Alfresco</description>
