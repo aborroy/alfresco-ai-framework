@@ -17,7 +17,7 @@
 
     <div class="document-metadata-container">
       <div class="document-metadata-pill" *ngFor="let doc of answerResults().documentMetadata">
-        <a class="result-link" [href]="'http://localhost:8080/share/page/document-details?nodeRef=workspace://SpacesStore/' + doc.documentId" target="_blank">
+        <a class="result-link" [href]="'{{ alfrescoShareUrl() }}' + doc.documentId" target="_blank">
           <span class="distance">{{ doc.distance | number:'1.4-4' }}</span>
           <span class="file-name">{{ doc.fileName }}</span>
           <mat-icon class="external-link-icon">open_in_new</mat-icon>

@@ -15,8 +15,8 @@
       "@/plugins/calendar": ["plugins/calendar-plugin/src/index.ts"],
       "@/plugins/content-services": ["plugins/content-services-plugin/src/index.ts"],
       "@/plugins/dashboard": ["plugins/dashboard-plugin/src/index.ts"],
-      "@/plugins/chat": ["plugins/chat-plugin/src/index.ts"],
-      "@hx-devkit/sdk": ["plugins/sdk/src/index.ts"]
+      "@hx-devkit/sdk": ["plugins/sdk/src/index.ts"],
+      "ai-chat-plugin": ["plugins/ai-chat-plugin/src/index.ts"]
     }
   }
 }

@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { ResponseData } from '../types';
+import { ConfigService } from '../../app.config.service';
 
 @Component({
   selector: 'lib-chat-plugin',
@@ -25,10 +26,10 @@ import { ResponseData } from '../types';
     MatProgressSpinnerModule,
     MatSelectModule
   ],
-  templateUrl: './chat-plugin.component.html',
-  styleUrls: ['./chat-plugin.component.css']
+  templateUrl: './ai-chat-plugin.component.html',
+  styleUrls: ['./ai-chat-plugin.component.css']
 })
-export class ChatPluginComponent {
+export class AiChatPluginComponent {
   private _results!: ResponseData;
   loading = false;
   header = '';
@@ -50,5 +51,9 @@ export class ChatPluginComponent {
     return this._results;
   }
 
-  constructor(private searchService: ChatService) {}
+  alfrescoShareUrl(): string {
+    return this.configService.alfrescoShareServer + '/share/page/document-details?nodeRef=workspace://SpacesStore/';
+  }
+
+  constructor(private searchService: ChatService, private configService: ConfigService) {}
 }

@@ -17,7 +17,7 @@ export const appRoutes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('@/plugins/chat').then((m) => m.routes)
+        loadChildren: () => import('ai-chat-plugin').then((m) => m.aiChatPluginRoutes)
       }
     ]
   },

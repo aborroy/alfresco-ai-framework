@@ -1,0 +1,33 @@
+{
+  "name": "ai-chat-plugin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugins/ai-chat-plugin/src",
+  "prefix": "lib",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "plugins/ai-chat-plugin/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "plugins/ai-chat-plugin/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "plugins/ai-chat-plugin/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["plugins/ai-chat-plugin/**/*.ts", "plugins/ai-chat-plugin/**/*.html", "plugins/ai-chat-plugin/package.json"]
+      }
+    }
+  }
+}
