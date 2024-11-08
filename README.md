@@ -18,6 +18,10 @@ The **Alfresco AI Framework** is a framework designed to integrate AI capabiliti
 - **Maven** (for building the project)
 - **Docker** (optional, for containerized deployment)
 
+### Architecture
+
+![Architecture Diagram](docs/alfresco-ai-framework.png)
+
 ### Projects
 
 * **[ai-rag-framework](ai-rag-framework)**: A REST API that ingests documents into a Generative AI (GenAI) model and provides a Retrieval-Augmented Generation (RAG) chat service.
