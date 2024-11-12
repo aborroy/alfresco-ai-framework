@@ -2,6 +2,7 @@ package org.alfresco.ai_framework.ingestion;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,17 +32,24 @@ public class IngestionController {
      * @param documentId Unique identifier for the document.
      * @param fileName   Public name of the file.
      * @param file       The file to be ingested.
-     * @throws IOException If an error occurs while reading the file input stream.
      */
     @PostMapping("/documents")
-    public ResponseEntity<String> uploadDocument(
+    public ResponseEntity<?> uploadDocument(
             @RequestParam("documentId") String documentId,
             @RequestParam("fileName") String fileName,
             @RequestParam("file") MultipartFile file
-    ) throws IOException {
-        Resource resource = createFileResource(file);
-        ingestionService.ingest(documentId, fileName, resource);
-        return ResponseEntity.ok("Document uploaded successfully with ID: " + documentId);
+    ) {
+        try {
+            Resource resource = createFileResource(file);
+            ingestionService.ingest(documentId, fileName, resource);
+            return ResponseEntity.ok("Document uploaded successfully with ID: " + documentId);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Failed to process file: " + e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to ingest document: " + e.getMessage());
+        }
     }
 
     /**
@@ -52,9 +60,14 @@ public class IngestionController {
      * @return ResponseEntity with the status of the deletion.
      */
     @DeleteMapping("/documents")
-    public ResponseEntity<String> deleteDocument(@RequestParam("documentId") String documentId) {
-        ingestionService.deleteByDocumentId(documentId);
-        return ResponseEntity.ok("Document deleted successfully with ID: " + documentId);
+    public ResponseEntity<?> deleteDocument(@RequestParam("documentId") String documentId) {
+        try {
+            ingestionService.deleteByDocumentId(documentId);
+            return ResponseEntity.ok("Document deleted successfully with ID: " + documentId);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete document: " + e.getMessage());
+        }
     }
 
 

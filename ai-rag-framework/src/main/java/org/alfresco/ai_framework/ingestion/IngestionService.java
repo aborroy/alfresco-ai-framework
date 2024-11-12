@@ -80,7 +80,7 @@ public class IngestionService {
             } else {
                 logger.info("No documents found with document ID: {}", documentId);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logger.error("Failed to delete documents with ID: {}", documentId, e);
         }
     }
