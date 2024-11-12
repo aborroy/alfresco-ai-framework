@@ -1,13 +1,13 @@
 include:
-  - elasticsearch.yaml
+  - opensearch.yaml
 services:
   alfresco-ai-framework:
     image: alfresco-ai-framework:latest
     environment:
-      - spring.elasticsearch.uris=${ELASTICSEARCH_URIS}
+      - spring.ai.vectorstore.opensearch.uris=${OPENSEARCH_URIS}
       - spring.ai.ollama.base-url=${OLLAMA_BASE_URL}
     depends_on:
-      elasticsearch:
+      opensearch:
         condition: service_healthy
     ports:
       - "9999:9999"

@@ -10,9 +10,6 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
-  elasticsearch:
-    uris: http://localhost:9200
-
   ai:
     chat:
       client:
@@ -27,7 +24,7 @@ spring:
         pull-model-strategy: when_missing
       chat:
         options:
-          model: qwen2.5
+          model: mistral
           temperature: 0.0
       embedding:
         options:
@@ -35,10 +32,11 @@ spring:
     vectorstore:
       observations:
         include-query-response: true
-      elasticsearch:
-        initialize-schema: true
+      opensearch:
+        uris: http://opensearch:9200
         index-name: alfresco-ai-document-index
-        dimensions: 768
+        username: admin
+        password: Alfresco.org.2024
 
 server:
   port: 9999
