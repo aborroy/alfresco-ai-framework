@@ -1,10 +1,20 @@
+FROM maven:3.8.7-eclipse-temurin-17 AS build
+
+WORKDIR /build
+
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+COPY src ./src
+RUN mvn package -DskipTests
+
 # Use the official Alfresco base image with JRE 17 on Rocky Linux 8
 FROM alfresco/alfresco-base-java:jre17-rockylinux8-202306121108
 
-# Set build-time variables for user ID
+ARG JAR_FILE=/build/target/ai-rag-framework-*.jar
+
 ARG UID=10001
 
-# Install necessary packages, create a non-login user, and lock the user account
 RUN yum install -y passwd && \
     # Create a non-login user with no home directory
     adduser \
@@ -20,14 +30,12 @@ RUN yum install -y passwd && \
     yum clean all && \
     rm -rf /var/cache/yum
 
-# Switch to the non-root user for improved security
 USER appuser
 
-# Set the working directory for the application
 WORKDIR /opt
 
-# Copy the built JAR file into the container
-COPY target/ai-rag-framework-*.jar app.jar
+COPY --from=build ${JAR_FILE} app.jar
 
-# Set the default command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+

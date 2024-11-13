@@ -2,10 +2,11 @@ include:
   - elasticsearch.yaml
 services:
   alfresco-ai-framework:
-    image: alfresco-ai-framework:latest
+    image: alfresco-ai-framework
+    build: ../
     environment:
-      - spring.elasticsearch.uris=${ELASTICSEARCH_URIS}
-      - spring.ai.ollama.base-url=${OLLAMA_BASE_URL}
+      - SPRING_ELASTICSEARCH_URIS=${ELASTICSEARCH_URIS}
+      - SPRING_AI_OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
     depends_on:
       elasticsearch:
         condition: service_healthy
