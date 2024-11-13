@@ -180,7 +180,7 @@ public class AlfrescoClient {
         ResponseEntity<ResultSetPaging> searchResponse = executeSearch(sortDefinition, folder);
         List<ResultSetRowEntry> entries = searchResponse.getBody().getList().getEntries();
 
-        processDocumentBatch(entries, processedCount);
+        processDocumentBatch(entries, folder, processedCount);
 
         return searchResponse.getBody();
     }
@@ -188,16 +188,17 @@ public class AlfrescoClient {
     /**
      * Processes a batch of documents in parallel.
      *
-     * @param entries Documents to process
+     * @param entries        Documents to process
+     * @param folder         Folder to synchronize
      * @param processedCount Counter for processed documents
      */
-    private void processDocumentBatch(List<ResultSetRowEntry> entries, AtomicInteger processedCount) {
+    private void processDocumentBatch(List<ResultSetRowEntry> entries, AlfrescoSyncFolder folder, AtomicInteger processedCount) {
         entries.parallelStream().forEach(entry -> {
             String uuid = entry.getEntry().getId();
             String name = entry.getEntry().getName();
 
             try {
-                processDocument(uuid, name);
+                processDocument(uuid, folder.id(), name);
                 processedCount.incrementAndGet();
                 LOGGER.debug("Processed document: {} ({})", name, uuid);
             } catch (Exception e) {
@@ -210,15 +211,16 @@ public class AlfrescoClient {
      * Processes a single document by fetching its content and uploading it to the AI service.
      *
      * @param uuid Document identifier
+     * @param syncFolderId Synchronization folder id
      * @param documentName Document name
      * @throws IOException If processing fails
      */
-    public void processDocument(String uuid, String documentName) throws IOException {
+    public void processDocument(String uuid, String syncFolderId, String documentName) throws IOException {
         try (InputStream content = nodesApi.getNodeContent(uuid, true, null, null)
                 .getBody()
                 .getInputStream()) {
 
-            String response = aiClient.uploadDocument(uuid, documentName, content);
+            String response = aiClient.uploadDocument(uuid, syncFolderId, documentName, content);
             LOGGER.debug("Document uploaded: {} - Response: {}", documentName, response);
         }
     }

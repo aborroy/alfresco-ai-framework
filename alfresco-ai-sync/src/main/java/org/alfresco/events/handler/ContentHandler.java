@@ -53,6 +53,14 @@ public class ContentHandler implements OnNodeCreatedEventHandler, OnNodeUpdatedE
     @Autowired
     private AtomicBoolean isInitialSyncComplete;
 
+    protected void addFolder(String folder) {
+        folderIdsList.add(folder);
+    }
+
+    protected void removeFolder(String folder) {
+        folderIdsList.add(folder);
+    }
+
     /**
      * Initializes the handler by resolving the folder ID from the configured folder path.
      * Executed after dependency injection is complete.
@@ -129,7 +137,7 @@ public class ContentHandler implements OnNodeCreatedEventHandler, OnNodeUpdatedE
             throws IOException {
         switch (event.getType()) {
             case CREATED:
-                alfrescoClient.processDocument(uuid, nodeResource.getName());
+                alfrescoClient.processDocument(uuid, getSyncFolderId(nodeResource), nodeResource.getName());
                 break;
             case UPDATED:
                 handleUpdateEvent(event, uuid, nodeResource);
@@ -142,14 +150,19 @@ public class ContentHandler implements OnNodeCreatedEventHandler, OnNodeUpdatedE
         }
     }
 
+    public String getSyncFolderId(NodeResource nodeResource) {
+        return  nodeResource.getPrimaryHierarchy().stream()
+                .filter(folderIdsList::contains)
+                .findFirst().orElse("");
+    }
+
     /**
      * Handles update events by checking if content has changed.
      */
-    private void handleUpdateEvent(RepoEvent<DataAttributes<Resource>> event, String uuid, NodeResource nodeResource)
-            throws IOException {
-        NodeResource nodeResourceBefore = ((NodeResource) event.getData().getResourceBefore());
+    private void handleUpdateEvent(RepoEvent<DataAttributes<Resource>> event, String uuid, NodeResource nodeResource) throws IOException {
+        NodeResource nodeResourceBefore = (NodeResource) event.getData().getResourceBefore();
         if (nodeResourceBefore != null && nodeResourceBefore.getContent() != null) {
-            alfrescoClient.processDocument(uuid, nodeResource.getName());
+            alfrescoClient.processDocument(uuid, getSyncFolderId(nodeResource), nodeResource.getName());
         } else {
             LOGGER.info("Skipping update for node ID {} ({}): content unchanged",
                     uuid, nodeResource.getName());
