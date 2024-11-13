@@ -1,0 +1,24 @@
+include:
+  - ./alfresco-docker/compose.yaml
+  - ./ai-rag-framework/deployment/compose.yaml
+services:
+  alfresco-ai-sync:
+    image: alfresco-ai-sync
+    build: ./alfresco-ai-sync
+    environment:
+      - content.service.url=http://alfresco:8080
+      - alfresco.ai.base.url=http://alfresco-ai-framework:9999
+      - spring.activemq.brokerUrl=tcp://activemq:61616
+    depends_on:
+      alfresco:
+        condition: service_healthy
+      solr6:
+        condition: service_healthy
+  alfresco-ai-ui:
+    image: alfresco-ai-ui
+    build: ./alfresco-ai-ui
+    environment:
+      CHAT_SERVICE_SERVER: http://localhost:9999
+      ALFRESCO_SHARE_SERVER: http://localhost:8080
+    ports:
+      - "80:80"
