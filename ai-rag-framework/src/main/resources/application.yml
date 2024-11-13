@@ -14,13 +14,6 @@ spring:
     uris: http://localhost:9200
 
   ai:
-    chat:
-      client:
-        observations:
-          include-input: true
-      observations:
-        include-completion: true
-        include-prompt: true
     ollama:
       base-url: http://localhost:11434
       init:
@@ -33,8 +26,6 @@ spring:
         options:
           model: nomic-embed-text
     vectorstore:
-      observations:
-        include-query-response: true
       elasticsearch:
         initialize-schema: true
         index-name: alfresco-ai-document-index

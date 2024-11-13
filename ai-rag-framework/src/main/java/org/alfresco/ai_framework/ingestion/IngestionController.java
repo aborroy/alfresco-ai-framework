@@ -13,8 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 /**
- * REST controller for handling document ingestion requests.
- * Provides an endpoint to upload documents by accepting a document ID and file.
+ * REST controller for handling document ingestion requests, including upload and delete operations.
  */
 @RestController
 public class IngestionController {
@@ -26,57 +25,43 @@ public class IngestionController {
     }
 
     /**
-     * Endpoint for uploading a document to the system.
-     * Accepts a document ID and file to be ingested by the IngestionService.
-     *
-     * @param documentId Unique identifier for the document.
-     * @param fileName   Public name of the file.
-     * @param file       The file to be ingested.
+     * Uploads a document to the system, ingesting it by the provided document and folder IDs.
      */
     @PostMapping("/documents")
-    public ResponseEntity<?> uploadDocument(
+    public ResponseEntity<String> uploadDocument(
             @RequestParam("documentId") String documentId,
+            @RequestParam("folderId") String folderId,
             @RequestParam("fileName") String fileName,
             @RequestParam("file") MultipartFile file
     ) {
         try {
-            Resource resource = createFileResource(file);
-            ingestionService.ingest(documentId, fileName, resource);
+            ingestionService.ingest(documentId, folderId, fileName, createFileResource(file));
             return ResponseEntity.ok("Document uploaded successfully with ID: " + documentId);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Failed to process file: " + e.getMessage());
+            return handleException("Failed to process file: ", e, HttpStatus.BAD_REQUEST);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to ingest document: " + e.getMessage());
+            return handleException("Failed to ingest document: ", e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
-     * Endpoint for deleting a document from the system.
-     * Accepts a document ID to delete the corresponding document from the system.
-     *
-     * @param documentId Unique identifier for the document.
-     * @return ResponseEntity with the status of the deletion.
+     * Deletes a document by document ID.
      */
     @DeleteMapping("/documents")
-    public ResponseEntity<?> deleteDocument(@RequestParam("documentId") String documentId) {
-        try {
-            ingestionService.deleteByDocumentId(documentId);
-            return ResponseEntity.ok("Document deleted successfully with ID: " + documentId);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to delete document: " + e.getMessage());
-        }
+    public ResponseEntity<String> deleteDocument(@RequestParam("documentId") String documentId) {
+        return deleteById(() -> ingestionService.deleteByDocumentId(documentId), "document", documentId);
     }
 
+    /**
+     * Deletes documents in a folder by folder ID.
+     */
+    @DeleteMapping("/folders")
+    public ResponseEntity<String> deleteDocumentsByFolder(@RequestParam("folderId") String folderId) {
+        return deleteById(() -> ingestionService.deleteByFolderId(folderId), "folder", folderId);
+    }
 
     /**
      * Creates a Resource from the MultipartFile to be ingested.
-     *
-     * @param file The file uploaded by the user.
-     * @return A Resource representation of the file.
-     * @throws IOException If an error occurs while accessing the file input stream.
      */
     private Resource createFileResource(MultipartFile file) throws IOException {
         return new InputStreamResource(file.getInputStream()) {
@@ -85,5 +70,24 @@ public class IngestionController {
                 return file.getOriginalFilename();
             }
         };
+    }
+
+    /**
+     * Deletes entities by ID, encapsulating the common deletion logic.
+     */
+    private ResponseEntity<String> deleteById(Runnable deleteAction, String entityType, String id) {
+        try {
+            deleteAction.run();
+            return ResponseEntity.ok(entityType + " deleted successfully with ID: " + id);
+        } catch (RuntimeException e) {
+            return handleException("Failed to delete " + entityType + ": ", e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Handles exceptions and creates a ResponseEntity with the given message and status.
+     */
+    private ResponseEntity<String> handleException(String message, Exception e, HttpStatus status) {
+        return ResponseEntity.status(status).body(message + e.getMessage());
     }
 }
