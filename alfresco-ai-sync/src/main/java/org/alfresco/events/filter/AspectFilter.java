@@ -31,6 +31,7 @@ public class AspectFilter extends AbstractEventFilter {
         final NodeResource nodeResource = (NodeResource) event.getData().getResource();
         final boolean aspectExistedBefore = (nodeResourceBefore != null && nodeResourceBefore.getAspectNames().contains(acceptedAspect));
         final boolean aspectExists = (nodeResource != null && nodeResource.getAspectNames().contains(acceptedAspect));
+        LOGGER.debug("The aspect {} has been added? {}", acceptedAspect, aspectExists && !aspectExistedBefore);
         return aspectExists && !aspectExistedBefore;
     }
 
