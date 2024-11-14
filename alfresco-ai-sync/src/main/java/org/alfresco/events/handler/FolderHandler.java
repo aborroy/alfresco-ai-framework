@@ -41,11 +41,11 @@ public class FolderHandler implements OnNodeCreatedEventHandler, OnNodeUpdatedEv
         switch (event.getType()) {
             case CREATED:
             case UPDATED:
-                LOGGER.debug("A new folder has been added for synchronization: {}", uuid);
+                LOGGER.info("A new folder has been added for synchronization: {}", uuid);
                 contentHandler.addFolder(uuid);
                 break;
             case DELETED:
-                LOGGER.debug("A folder has been removed from synchronization: {}", uuid);
+                LOGGER.info("A folder has been removed from synchronization: {}", uuid);
                 contentHandler.removeFolder(uuid);
                 try {
                     String response = aiClient.deleteDocumentsFromFolder(uuid);
