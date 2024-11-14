@@ -4,9 +4,9 @@ import org.alfresco.ai.AIClient;
 import org.alfresco.event.sdk.handling.filter.EventFilter;
 import org.alfresco.event.sdk.handling.handler.OnNodeCreatedEventHandler;
 import org.alfresco.event.sdk.handling.handler.OnNodeDeletedEventHandler;
+import org.alfresco.event.sdk.handling.handler.OnNodeUpdatedEventHandler;
 import org.alfresco.events.filter.AspectFilter;
 import org.alfresco.repo.event.v1.model.*;
-import org.alfresco.service.AlfrescoClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.alfresco.events.handler.ContentHandler.CREATED;
-import static org.alfresco.events.handler.ContentHandler.DELETED;
+import static org.alfresco.events.handler.ContentHandler.*;
 
 @Component
-public class FolderHandler implements OnNodeCreatedEventHandler, OnNodeDeletedEventHandler {
+public class FolderHandler implements OnNodeCreatedEventHandler, OnNodeUpdatedEventHandler, OnNodeDeletedEventHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FolderHandler.class);
 
@@ -41,6 +40,7 @@ public class FolderHandler implements OnNodeCreatedEventHandler, OnNodeDeletedEv
         String uuid = nodeResource.getId();
         switch (event.getType()) {
             case CREATED:
+            case UPDATED:
                 LOGGER.debug("A new folder has been added for synchronization: {}", uuid);
                 contentHandler.addFolder(uuid);
                 break;
@@ -63,6 +63,7 @@ public class FolderHandler implements OnNodeCreatedEventHandler, OnNodeDeletedEv
     public Set<EventType> getHandledEventTypes() {
         Set<EventType> handledEventTypes = Stream.of(
                         OnNodeCreatedEventHandler.super.getHandledEventTypes(),
+                        OnNodeUpdatedEventHandler.super.getHandledEventTypes(),
                         OnNodeDeletedEventHandler.super.getHandledEventTypes()
                 )
                 .flatMap(Set::stream)
