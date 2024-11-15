@@ -58,7 +58,7 @@ Exploring the features of the project can be done by following this series of tu
 
 - **Lab 2: Chat Functionality**  
 
-![Chatting Diagram](docs/alfresco-ai-framework-chatting.png){: style="max-width: 70%; height: auto;"}
+<img src="docs/alfresco-ai-framework-chatting.png" alt="Chatting Diagram" style="max-width: 70%; height: auto;">
 
 - **Lab 3: Running All Components Together**  
 
