@@ -1,6 +1,6 @@
 # Lab 1: Ingestion Pipeline
 
-![Ingestion Pipeline Diagram](docs/alfresco-ai-framework-ingestion.png)
+![Ingestion Pipeline Diagram](alfresco-ai-framework-ingestion.png)
 
 In this lab, you will learn how to populate a **Vector Database** (Elasticsearch) with selected content from the **Knowledge Base** stored in Alfresco. This involves extracting vectors from the content using the **Embedding** module `nomic-embed-text` via Ollama.
 
