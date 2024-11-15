@@ -20,7 +20,7 @@ services:
       timeout: 10s
       retries: 3
     volumes:
-      - es-data:/usr/share/elasticsearch/data
+      - ./data/es-data:/usr/share/elasticsearch/data
   kibana:
     image: kibana:${ELASTICSEARCH_VERSION}
     environment:
@@ -30,5 +30,3 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
-volumes:
-  es-data:

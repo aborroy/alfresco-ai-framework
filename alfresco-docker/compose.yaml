@@ -14,7 +14,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - ./data/postgres-data:/var/lib/postgresql/data
 
   activemq:
     image: docker.io/alfresco/alfresco-activemq:5.18-jre17-rockylinux8
@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - activemq-data:/opt/activemq/data
+      - ./data/activemq-data:/opt/activemq/data
 
   transform-core-aio:
     image: docker.io/alfresco/alfresco-transform-core-aio:5.1.4
@@ -88,7 +88,7 @@ services:
       transform-core-aio:
         condition: service_healthy
     volumes:
-      - alf-repo-data:/usr/local/tomcat/alf_data
+      - ./data/alf-repo-data:/usr/local/tomcat/alf_data
 
   solr6:
     image: docker.io/alfresco/alfresco-search-services:2.0.12
@@ -110,7 +110,7 @@ services:
       alfresco:
         condition: service_healthy
     volumes:
-      - solr-data:/opt/alfresco-search-services/data
+      - ./data/solr-data:/opt/alfresco-search-services/data
 
   share:
     image: docker.io/alfresco/alfresco-share:23.3.0
@@ -142,9 +142,3 @@ services:
         condition: service_started
     ports:
       - "8080:8080"
-
-volumes:
-  activemq-data:
-  postgres-data:
-  alf-repo-data:
-  solr-data:
