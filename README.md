@@ -50,19 +50,31 @@ The **Alfresco AI Framework** is a robust framework designed to integrate AI cap
 
 ## Laboratories
 
-Exploring the features of the project can be done by following this series of tutorials, which cover the processes of data ingestion, chat integration, and the overall operation of the project.
+This series of tutorials will guide you through the key features of the project, including data ingestion, chat integration, and the overall operation of the system.
 
-- **Lab 1: Ingestion Pipeline**
+### **Lab 1: Ingestion Pipeline**
 
 ![Ingestion Pipeline Diagram](docs/alfresco-ai-framework-ingestion.png)
 
-- **Lab 2: Chat Functionality**  
+In this lab, you'll learn how to populate the **Vector Database** (Elasticsearch) with selected content from the **Knowledge Base** stored in Alfresco. This involves extracting vectors from content using the **Embedding** module `nomic-embed-text` via Ollama.
+
+Begin the lab by following [Lab 1: Ingestion Pipeline](docs/lab1-ingestion.md).
+
+### **Lab 2: Chat Functionality**
 
 ![Chatting Diagram](docs/alfresco-ai-framework-chatting.png)
 
-- **Lab 3: Running All Components Together**  
+This lab focuses on enabling chat functionality with the **LLM** `qwen2.5` via Ollama, using Alfresco UI apps like Share and ADF. The process includes transforming the user's prompt into vectors using the **Embedding** module `nomic-embed-text` via Ollama, then searching for relevant content in the **Vector Database** (Elasticsearch). The retrieved text is used to provide context to the **LLM**, which helps generate more accurate responses.
+
+Start this lab by following [Lab 2: Chat Functionality](docs/lab2-chat.md).
+
+### **Lab 3: Running All Components Together**
 
 ![Architecture Diagram](docs/alfresco-ai-framework.png)
+
+In this lab, you'll integrate all the components (ingestion and chat functionality) with a live Alfresco Repository. The system will automatically update the **Vector Database** whenever there are changes in the repository, eliminating the need for manual intervention.
+
+You can begin this lab by following [Lab 3: Running All Components Together](docs/lab3-all.md).
 
 ## License  
 
