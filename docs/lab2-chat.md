@@ -86,7 +86,7 @@ Every answer includes the content of the document, including structured fields:
 
 The service **ai-rag-framework** is providing the chatting service by using following pieces of code:
 
-Configuration for Vector Database (elasticsearch), ollama and LLM for chatting is defined in [application.yml](https://github.com/aborroy/alfresco-ai-framework/blob/main/ai-rag-framework/src/main/resources/application.yml)
+Configuration for Vector Database (elasticsearch), ollama, embedding model and LLM for chatting is defined in [application.yml](https://github.com/aborroy/alfresco-ai-framework/blob/main/ai-rag-framework/src/main/resources/application.yml)
 
 ```yaml
   elasticsearch:
@@ -101,6 +101,9 @@ Configuration for Vector Database (elasticsearch), ollama and LLM for chatting i
         options:
           model: qwen2.5
           temperature: 0.0
+      embedding:
+        options:
+          model: nomic-embed-text          
     vectorstore:
       elasticsearch:
         initialize-schema: true
@@ -108,7 +111,7 @@ Configuration for Vector Database (elasticsearch), ollama and LLM for chatting i
         dimensions: 768
 ```
 
-The prompt is processed using the [ChatClient](https://github.com/spring-projects/spring-ai/blob/main/spring-ai-core/src/main/java/org/springframework/ai/chat/client/ChatClient.java) class to process the query. The [QuestionAnswerAdvisor](https://github.com/spring-projects/spring-ai/blob/main/spring-ai-core/src/main/java/org/springframework/ai/chat/client/advisor/QuestionAnswerAdvisor.java) class provides the additional context searching the `DEFAULT_TOP_K` most relevant results from the `vectorStore`. These context is used together with the `qwen2.5` LLM to build the chat response.
+The prompt is processed using the [ChatClient](https://github.com/spring-projects/spring-ai/blob/main/spring-ai-core/src/main/java/org/springframework/ai/chat/client/ChatClient.java) class to process the query. The [QuestionAnswerAdvisor](https://github.com/spring-projects/spring-ai/blob/main/spring-ai-core/src/main/java/org/springframework/ai/chat/client/advisor/QuestionAnswerAdvisor.java) class provides the additional context searching the `DEFAULT_TOP_K` most relevant results from the `vectorStore` using the `nomic-embed-text` embedding. These context is used together with the `qwen2.5` LLM to build the chat response.
 
 
 ```java
