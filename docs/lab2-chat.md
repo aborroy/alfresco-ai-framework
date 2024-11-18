@@ -117,8 +117,8 @@ The prompt is processed using the [ChatClient](https://github.com/spring-project
 ```java
 // Configuring advisors to enhance the response quality
 ChatResponse response = chatClient.prompt()
-        .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults().withTopK(DEFAULT_TOP_K)))
         .user(query)
+        .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults().withTopK(DEFAULT_TOP_K)))
         .call()
         .chatResponse();
 

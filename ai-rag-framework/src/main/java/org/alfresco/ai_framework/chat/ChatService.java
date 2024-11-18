@@ -47,23 +47,13 @@ public class ChatService {
 
         // Configuring advisors to enhance the response quality
         ChatResponse response = chatClient.prompt()
-                .advisors(createQuestionAnswerAdvisor())
                 .user(query)
+                .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults().withTopK(DEFAULT_TOP_K)))
                 .call()
                 .chatResponse();
 
         logger.info("Received response from AI");
         return response;
-    }
-
-    /**
-     * Creates a QuestionAnswerAdvisor for handling document retrieval.
-     *
-     * @return A configured QuestionAnswerAdvisor instance.
-     */
-    private QuestionAnswerAdvisor createQuestionAnswerAdvisor() {
-        SearchRequest searchRequest = SearchRequest.defaults().withTopK(DEFAULT_TOP_K);
-        return new QuestionAnswerAdvisor(vectorStore, searchRequest);
     }
 
 }
