@@ -36,8 +36,10 @@ public class IngestionService {
         List<Document> documents = transformDocument(file);
         addMetadata(documents, documentId, folderId, fileName);
 
-        deleteByDocumentId(documentId);  // Remove any existing documents with the same ID
-        vectorStore.add(documents);
+        List<Document> processedDocs = DocumentSplitter.splitLargeDocuments(documents);
+
+        deleteByDocumentId(documentId);
+        vectorStore.add(processedDocs);
 
         logger.info("Ingestion complete for document ID: {}", documentId);
     }
