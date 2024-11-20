@@ -1,5 +1,7 @@
 package org.alfresco.ai_framework.ingestion;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import java.io.IOException;
  */
 @RestController
 public class IngestionController {
+
+    private static final Logger logger = LoggerFactory.getLogger(IngestionController.class);
 
     private final IngestionService ingestionService;
 
@@ -88,6 +92,7 @@ public class IngestionController {
      * Handles exceptions and creates a ResponseEntity with the given message and status.
      */
     private ResponseEntity<String> handleException(String message, Exception e, HttpStatus status) {
+        logger.error("Message: {}, status: {}", message, status, e);
         return ResponseEntity.status(status).body(message + e.getMessage());
     }
 }

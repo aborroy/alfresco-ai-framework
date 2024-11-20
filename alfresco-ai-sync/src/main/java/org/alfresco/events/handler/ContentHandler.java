@@ -105,6 +105,7 @@ public class ContentHandler implements OnNodeCreatedEventHandler, OnNodeUpdatedE
         } catch (Exception e) {
             LOGGER.error("Failed to process {} event for node ID {}: {}",
                     event.getType(), uuid, e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
