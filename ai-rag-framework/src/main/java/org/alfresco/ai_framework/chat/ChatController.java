@@ -46,7 +46,7 @@ public class ChatController {
         }
 
         // Extract answer content and associated document metadata
-        String answer = response.getResult().getOutput().getContent();
+        String answer = response.getResult().getOutput().getText();
         List<Map<String, Object>> documentMetadata = extractDocumentMetadata(response);
 
         return ResponseEntity.ok(new ChatResponseDTO(answer, documentMetadata));

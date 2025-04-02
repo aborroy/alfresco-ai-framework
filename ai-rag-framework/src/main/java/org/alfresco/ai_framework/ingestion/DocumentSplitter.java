@@ -15,7 +15,7 @@ public class DocumentSplitter {
         List<Document> result = new ArrayList<>();
 
         for (Document doc : documents) {
-            if (doc.getContent().length() <= MAX_LENGTH) {
+            if (doc.getText().length() <= MAX_LENGTH) {
                 result.add(doc);
             } else {
                 result.addAll(splitDocument(doc));
@@ -27,7 +27,7 @@ public class DocumentSplitter {
 
     private static List<Document> splitDocument(Document doc) {
         List<Document> splits = new ArrayList<>();
-        String content = doc.getContent();
+        String content = doc.getText();
         int totalLength = content.length();
         int startIndex = 0;
         int partNumber = 1;
@@ -38,10 +38,10 @@ public class DocumentSplitter {
 
             // Create new document using the builder pattern
             Document splitDoc = Document.builder()
-                    .withId(doc.getId() + "_part" + partNumber)
-                    .withContent(splitContent)
-                    .withMedia(new ArrayList<>(doc.getMedia()))  // Copy media collection
-                    .withMetadata(createSplitMetadata(doc, partNumber))
+                    .id(doc.getId() + "_part" + partNumber)
+                    .text(splitContent)
+                    .media(doc.getMedia())
+                    .metadata(createSplitMetadata(doc, partNumber))
                     .build();
 
             splits.add(splitDoc);

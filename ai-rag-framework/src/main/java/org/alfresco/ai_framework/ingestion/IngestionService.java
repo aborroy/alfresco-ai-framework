@@ -85,7 +85,7 @@ public class IngestionService {
 
         try {
             List<Document> documents = vectorStore.similaritySearch(
-                    SearchRequest.defaults().withFilterExpression("'" + key + "' == '" + value + "'")
+                    SearchRequest.builder().filterExpression("'" + key + "' == '" + value + "'").build()
             );
 
             if (!documents.isEmpty()) {

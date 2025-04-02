@@ -48,7 +48,7 @@ public class ChatService {
         // Configuring advisors to enhance the response quality
         ChatResponse response = chatClient.prompt()
                 .user(query)
-                .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults().withTopK(DEFAULT_TOP_K)))
+                .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.builder().topK(DEFAULT_TOP_K).build()))
                 .call()
                 .chatResponse();
 

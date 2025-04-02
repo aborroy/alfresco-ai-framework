@@ -14,17 +14,20 @@ spring:
     uris: http://localhost:9200
 
   ai:
-    ollama:
-      base-url: http://localhost:11434
+    model:
+      chat: openai
+    openai:
+      base-url: http://localhost:12434/engines
+      api-key: nokeyrequired
       init:
         pull-model-strategy: when_missing
       chat:
         options:
-          model: qwen2.5
+          model: ai/qwen2.5
           temperature: 0.0
       embedding:
         options:
-          model: nomic-embed-text
+          model: ai/mxbai-embed-large
     vectorstore:
       elasticsearch:
         initialize-schema: true
