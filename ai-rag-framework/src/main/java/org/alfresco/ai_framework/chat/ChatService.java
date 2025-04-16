@@ -3,9 +3,8 @@ package org.alfresco.ai_framework.chat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class ChatService {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatService.class);
-    private static final int DEFAULT_TOP_K = 5;
 
     private final ChatClient chatClient;
     private final VectorStore vectorStore;
@@ -46,9 +44,10 @@ public class ChatService {
         logger.info("Processing chat query: {}", query);
 
         // Configuring advisors to enhance the response quality
-        ChatResponse response = chatClient.prompt()
+        ChatResponse response = chatClient
+                .prompt()
+                .advisors(new QuestionAnswerAdvisor(vectorStore))
                 .user(query)
-                .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults().withTopK(DEFAULT_TOP_K)))
                 .call()
                 .chatResponse();
 

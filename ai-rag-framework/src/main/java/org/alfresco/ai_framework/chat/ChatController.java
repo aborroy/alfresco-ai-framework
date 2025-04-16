@@ -1,13 +1,14 @@
 package org.alfresco.ai_framework.chat;
 
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.content.Content;
+import org.springframework.ai.document.Document;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.model.Content;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +39,7 @@ public class ChatController {
      */
     @PostMapping("/chat")
     public ResponseEntity<ChatResponseDTO> chat(@RequestBody String query) {
+
         ChatResponse response = chatService.chat(query);
 
         if (response == null || response.getResult() == null) {
@@ -46,7 +48,7 @@ public class ChatController {
         }
 
         // Extract answer content and associated document metadata
-        String answer = response.getResult().getOutput().getContent();
+        String answer = response.getResult().getOutput().getText();
         List<Map<String, Object>> documentMetadata = extractDocumentMetadata(response);
 
         return ResponseEntity.ok(new ChatResponseDTO(answer, documentMetadata));
@@ -60,9 +62,9 @@ public class ChatController {
      * @return A list of metadata maps for each context document.
      */
     private List<Map<String, Object>> extractDocumentMetadata(ChatResponse response) {
-        List<Content> contextDocuments = response.getMetadata().get(QuestionAnswerAdvisor.RETRIEVED_DOCUMENTS);
+        List<Document> contextDocuments = response.getMetadata().get(QuestionAnswerAdvisor.RETRIEVED_DOCUMENTS);
         return contextDocuments.stream()
-                .map(Content::getMetadata)
+                .map(Document::getMetadata)
                 .collect(Collectors.toList());
     }
 

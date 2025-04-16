@@ -74,7 +74,7 @@ Follow the steps to synchronize the content from the Alfresco Knowledge Base to 
     Starting initial synchronization for folder: AlfrescoSyncFolder[id=5730a944-248d-43cf-b0a9-44248d23cfec, publishedDate=null, updatedDate=2024-11-15T13:17Z, docLastUpdatedDate=2024-11-15T13:17:41.487Z]
     Initial synchronization for folder AlfrescoSyncFolder[id=5730a944-248d-43cf-b0a9-44248d23cfec, publishedDate=null, updatedDate=2024-11-15T13:17Z, docLastUpdatedDate=2024-11-15T13:17:41.487Z] complete. Processed 7 documents
     Finished initial sync process.
-```
+   ```
 
 **Spring AI for ingestion**
 
