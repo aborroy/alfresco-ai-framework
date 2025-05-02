@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<spring-ai.version>1.0.0-SNAPSHOT</spring-ai.version>
+		<spring-ai.version>1.0.0-M7</spring-ai.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -30,13 +30,13 @@
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-elasticsearch-store-spring-boot-starter</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>co.elastic.clients</groupId>
 					<artifactId>elasticsearch-java</artifactId>
 				</exclusion>
 			</exclusions>
+			<version>1.0.0-M6</version>
 		</dependency>
 		<dependency>
 			<groupId>co.elastic.clients</groupId>
@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0-M6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
